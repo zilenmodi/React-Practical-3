@@ -1,0 +1,111 @@
+.todo-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.todo-box {
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 300px;
+    width: 440px;
+}
+
+.todo-presentner {
+    padding: 2.6rem;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.2rem;
+}
+
+.todo-main {
+    height: 430px;
+    overflow: auto;
+}
+
+.todo-date {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.todo-date_current-date {
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+.todo-date_current-month,
+.todo-date_current-day {
+    font-weight: 500;
+}
+
+.todo-date_current-day {
+    font-size: 1.1rem;
+}
+
+.todo-lists {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.todo-list {
+    list-style: none;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.todo-list-completed {
+    opacity: 0.5;
+}
+
+.todo-list-progress {
+    width: 2rem;
+    height: 2rem;
+}
+
+.todo-list img {
+    height: 100%;
+    width: 100%;
+}
+
+.todo-add-box {
+    position: relative;
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.todo-add-button {
+    height: 5.2rem;
+    width: 5.2rem;
+    border-radius: 100%;
+    background: #50E3A4;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -94px;
+}
+
+.todo-add-sign {
+    font-size: 3rem;
+    color: #3fac7d;
+}
+
+@media only screen and (max-width: 500px) {
+    .todo-container {
+        height: unset;
+    }
+}
