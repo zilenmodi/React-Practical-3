@@ -5,87 +5,91 @@ import { TodoContext } from "../store/TodoContext";
 import swal from "sweetalert2";
 
 const ToDoFormContainer = () => {
-  const { state, dispatch } = useContext(TodoContext);
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [isPlusBtnOn, setIsPlusBtnOn] = useState(true);
-  const [todo, setTodo] = useState({
-    id: "",
-    text: "",
-    completed: false,
-  });
-
-  useEffect(() => {
-    setIsSubmit(false);
-  }, [todo]);
-
-  useEffect(() => {
-    setTodo((prev) => ({ ...prev, id: Math.ceil(Math.random() * 10000) }));
-  }, [isSubmit]);
-
-  function handleEnter(e) {
-    e.preventDefault();
-    dispatch({ type: "ADD_TODO", payload: todo });
-    setIsSubmit(true);
-    setTodo({
-      id: "",
-      text: "",
-      completed: false,
+    const { state, dispatch } = useContext(TodoContext);
+    const [isPlusBtnOn, setIsPlusBtnOn] = useState(true);
+    const [todo, setTodo] = useState({
+        id: "",
+        text: "",
+        completed: false,
+        createdAt: ""
     });
-    success();
-  }
 
-  function changeInput(e) {
-    setTodo((prev) => ({ ...prev, text: e.target.value }));
-  }
+    function handleEnter(e) {
+        e.preventDefault();
+        if (todo.text.replace(/^\s+|\s+$/gm, '').length == 0) {
+            alert("fill correctly");
+            return;
+        }
+        if (todo.text === "DELETE") {
+            if (confirm("Are you sure?")) {
+                setIsPlusBtnOn(true);
+                dispatch({ type: "DELETE_TODO" });
+                sweetAlert("error", "Deleted successfully");
+            }
+        }
+        else {
+            dispatch({ type: "ADD_TODO", payload: todo });
+            sweetAlert("success", "Added successfully");
+        }
+        setTodo({
+            id: "",
+            text: "",
+            completed: false,
+            createdAt: ""
+        });
+    }
 
-  function togglePlusBtn() {
-    setIsPlusBtnOn((prev) => !prev);
-  }
+    function changeInput(e) {
+        setTodo((prev) => ({ ...prev, text: e.target.value }));
+    }
 
-  function success() {
-    // function to display a success message
-    window.Swal = swal;
-    Swal.fire({
-      toast: true,
-      icon: "success",
-      title: "Added successfully",
-      animation: false,
-      position: "bottom-left",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        // add event listeners to pause/resume timer on hover
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-  }
+    function togglePlusBtn() {
+        setIsPlusBtnOn((prev) => !prev);
+    }
 
-  useEffect(() => {
-    const keyDownHandler = (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setIsPlusBtnOn(true);
-      }
-    };
-    document.addEventListener("keydown", keyDownHandler);
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
-  }, []);
+    function sweetAlert(icon, message) {
+        window.Swal = swal;
+        Swal.fire({
+            toast: true,
+            icon: icon,
+            title: message,
+            animation: false,
+            position: "bottom-left",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                // add event listeners to pause/resume timer on hover
+                toast.addEventListener("mouseenter", Swal.stopTimer);
+                toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+        });
+    }
 
-  return (
-    <>
-      <ToDoFormComponent
-        todo={todo}
-        changeInput={changeInput}
-        handleEnter={handleEnter}
-        isPlusBtnOn={isPlusBtnOn}
-        togglePlusBtn={togglePlusBtn}
-      />
-    </>
-  );
+    useEffect(() => {
+        const keyDownHandler = (event) => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                setIsPlusBtnOn(true);
+            }
+        };
+        document.addEventListener("keydown", keyDownHandler);
+        return () => {
+            document.removeEventListener("keydown", keyDownHandler);
+        };
+    }, []);
+
+    return (
+        <>
+            <ToDoFormComponent
+                todo={todo}
+                changeInput={changeInput}
+                handleEnter={handleEnter}
+                isPlusBtnOn={isPlusBtnOn}
+                togglePlusBtn={togglePlusBtn}
+            />
+        </>
+    );
 };
 
 export default ToDoFormContainer;

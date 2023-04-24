@@ -1,35 +1,38 @@
 import React, { createContext, useReducer } from 'react';
+import useTime from '../hooks/useTime';
 
 const initialState = {
-    todos: JSON.parse(localStorage.getItem('todoLists')) || []
+    todos: checkSessionExpirey(JSON.parse(localStorage.getItem('todoLists'))) || []
 };
 
 export const TodoContext = createContext();
+
+function checkSessionExpirey(todoLists) {
+    let updatedTodoLists = todoLists.filter((todo) => (new Date()).getDate() === todo.createdAt);
+    localStorage.setItem('todoLists', JSON.stringify(updatedTodoLists));
+    return updatedTodoLists;
+}
 
 export const todoReducer = (state, action) => {
     let newTodoLists;
     switch (action.type) {
         case 'ADD_TODO':
+            action.payload.id = Math.ceil(Math.random() * 10000);
+            action.payload.createdAt = new Date().getDate()
             newTodoLists = [...state.todos, action.payload]
-            localStorage.setItem('todoLists', JSON.stringify(newTodoLists));
-            return { ...state, todos: newTodoLists };
+            return { ...state, todos: checkSessionExpirey(newTodoLists) };
         case 'DELETE_TODO':
-            newTodoLists = state.todos.filter((todo) => todo.id !== action.payload)
-            localStorage.setItem('todoLists', JSON.stringify(newTodoLists));
-            return {
-                ...state,
-                todos: newTodoLists
-            };
+            newTodoLists = []
+            return { ...state, todos: checkSessionExpirey(newTodoLists) };
         case 'TOGGLE_TODO':
             newTodoLists = state.todos.map((todo) =>
                 todo.id === action.payload
                     ? { ...todo, completed: !todo.completed }
                     : todo
             );
-            localStorage.setItem('todoLists', JSON.stringify(newTodoLists));
             return {
                 ...state,
-                todos: newTodoLists
+                todos: checkSessionExpirey(newTodoLists)
             };
         default:
             return state;
