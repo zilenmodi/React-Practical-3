@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import useTime from '../hooks/useTime';
 
 const initialState = {
-    todos: checkSessionExpirey(JSON.parse(localStorage.getItem('todoLists'))) || []
+    todos: checkSessionExpirey(JSON.parse(localStorage.getItem('todoLists')) || [])
 };
 
 export const TodoContext = createContext();
