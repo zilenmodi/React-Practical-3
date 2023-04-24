@@ -16,12 +16,12 @@ const ToDoComponent = ({ visibleTodos, dispatch, dateData }) => {
                             <div className="todo-date">
                                 <span className="todo-date_current-date">{dateData.date}</span>
                                 <span className="todo-date_month-year">
-                                    <p className="todo-date_current-month">{dateData.month}</p>
+                                    <p className="todo-date_current-month">{dateData.month?.slice(0, 3).toUpperCase()}</p>
                                     <p className="todo-date_current-year">{dateData.year}</p>
                                 </span>
                             </div>
                             <p className="todo-date">
-                                <span className="todo-date_current-day">{dateData.day}</span>
+                                <span className="todo-date_current-day">{dateData.day?.toUpperCase()}</span>
                             </p>
                         </div>
                         <div className="todo-main">

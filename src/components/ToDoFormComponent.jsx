@@ -23,6 +23,7 @@ const ToDoFormComponent = ({
                         className="todo-list-text"
                         placeholder="Enter To-Do Task"
                         autoFocus
+                        maxLength={30}
                     />
                     <p>For Delete all todos, Write "DELETE"</p>
                     <button onClick={(e) => handleEnter(e)} hidden>

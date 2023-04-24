@@ -16,7 +16,7 @@ const ToDoFormContainer = () => {
 
     function handleEnter(e) {
         e.preventDefault();
-        if (todo.text.replace(/^\s+|\s+$/gm, '').length == 0) {
+        if (todo.text.replace(/^\s+|\s+$/gm, '').length == 0 || todo.text > 30) {
             alert("fill correctly");
             return;
         }
