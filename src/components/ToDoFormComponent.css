@@ -1,0 +1,31 @@
+form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+form input {
+  width: 80%;
+  padding: 0.5rem;
+  border: 1px solid #56596a;
+  border-radius: 4px;
+  color: #56596a;
+}
+
+.todo-add-button {
+  height: 5.2rem;
+  width: 5.2rem;
+  border-radius: 100%;
+  background: #50e3a4;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -94px;
+  cursor: pointer;
+}
+
+.todo-add-sign {
+  font-size: 3rem;
+  color: #3fac7d;
+}
