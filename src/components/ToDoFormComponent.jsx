@@ -10,6 +10,7 @@ const ToDoFormComponent = ({
 }) => {
     return (
         <>
+            {/* Either + button or text fields */}
             {isPlusBtnOn ? (
                 <div className="todo-add-button" onClick={togglePlusBtn}>
                     <p className="todo-add-sign">+</p>

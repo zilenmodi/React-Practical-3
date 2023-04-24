@@ -5,6 +5,7 @@ import useTime from "../hooks/useTime";
 import { TodoContext } from "../store/TodoContext";
 
 const ToDoContainer = () => {
+    /* Define state and dispatch */
     const { state, dispatch } = useContext(TodoContext);
     const visibleTodos = state.todos;
     const dateData = useTime();

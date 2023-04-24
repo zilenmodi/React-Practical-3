@@ -25,6 +25,7 @@ const weekNames = [
     "Saturday",
 ];
 
+/* Define a custom hook for getting the current time */
 const useTime = () => {
     const [dateData, setDateData] = useState({});
     useEffect(() => {
@@ -39,7 +40,7 @@ const useTime = () => {
             1000
         );
         return function clenup() {
-            clearInterval(interval);
+            clearInterval(interval); // clean up function
         };
     });
     return dateData;
