@@ -7,9 +7,10 @@ const ToDoFormComponent = ({
     handleEnter,
     isPlusBtnOn,
     togglePlusBtn,
+    isError
 }) => {
     return (
-        <>
+        <React.Fragment>
             {/* Either + button or text fields */}
             {isPlusBtnOn ? (
                 <div className="todo-add-button" onClick={togglePlusBtn}>
@@ -26,13 +27,15 @@ const ToDoFormComponent = ({
                         autoFocus
                         maxLength={30}
                     />
-                    <p>For Delete all todos, Write "DELETE"</p>
+                    {
+                        isError ? <p className="error-msg">Please Enter Valid Tasks</p> : <p>For Delete all todos, Write "DELETE"</p>
+                    }
                     <button onClick={(e) => handleEnter(e)} hidden>
                         Submit
                     </button>
                 </form>
             )}
-        </>
+        </React.Fragment>
     );
 };
 

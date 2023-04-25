@@ -8,6 +8,7 @@ import swal from "sweetalert2";
 const ToDoFormContainer = () => {
     const { state, dispatch } = useContext(TodoContext);
     const [isPlusBtnOn, setIsPlusBtnOn] = useState(true);
+    const [isError, setIsError] = useState(false);
     const [todo, setTodo] = useState({
         id: "",
         text: "",
@@ -16,11 +17,12 @@ const ToDoFormContainer = () => {
     }); //useState hook is used to manage the state of the todo object
 
     /* This function handles the form submission when the user hits the Enter key */
-    function handleEnter(e) {
+    const handleEnter = (e) => {
         e.preventDefault();
         /* Checks if the todo text is not empty or exceeds the limit of 30 characters */
         if (todo.text.replace(/^\s+|\s+$/gm, '').length == 0 || todo.text > 30) {
-            alert("fill correctly");
+            setIsError(true);
+            setTimeout(() => setIsError(false), 2000);
             return;
         } /* If the todo text is "DELETE", it asks for confirmation before deleting all the todos */
         if (todo.text === "DELETE") {
@@ -40,17 +42,18 @@ const ToDoFormContainer = () => {
             completed: false,
             createdAt: ""
         });
+        setIsError(false);
     }
 
-    function changeInput(e) {
+    const changeInput = (e) => {
         setTodo((prev) => ({ ...prev, text: e.target.value }));
     }
 
-    function togglePlusBtn() {
+    const togglePlusBtn = () => {
         setIsPlusBtnOn((prev) => !prev);
     }
 
-    function sweetAlert(icon, message) {
+    const sweetAlert = (icon, message) => {
         window.Swal = swal;
         Swal.fire({
             toast: true,
@@ -84,15 +87,16 @@ const ToDoFormContainer = () => {
     }, []);
 
     return (
-        <>
+        <React.Fragment>
             <ToDoFormComponent
                 todo={todo}
                 changeInput={changeInput}
                 handleEnter={handleEnter}
                 isPlusBtnOn={isPlusBtnOn}
                 togglePlusBtn={togglePlusBtn}
+                isError={isError}
             />
-        </>
+        </React.Fragment>
     );
 };
 

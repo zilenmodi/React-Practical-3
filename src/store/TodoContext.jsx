@@ -1,5 +1,12 @@
 import React, { createContext, useReducer } from 'react';
 
+/* Helper function to remove expired to-do list items from local storage */
+const checkSessionExpirey = (todoLists) => {
+    let updatedTodoLists = todoLists.filter((todo) => (new Date()).getDate() === todo.createdAt);
+    localStorage.setItem('todoLists', JSON.stringify(updatedTodoLists));
+    return updatedTodoLists;
+}
+
 /* Define the initial state for the todo list */
 const initialState = {
     todos: checkSessionExpirey(JSON.parse(localStorage.getItem('todoLists')) || [])
@@ -7,13 +14,6 @@ const initialState = {
 
 /* Create a new context for the todo list */
 export const TodoContext = createContext();
-
-/* Helper function to remove expired to-do list items from local storage */
-function checkSessionExpirey(todoLists) {
-    let updatedTodoLists = todoLists.filter((todo) => (new Date()).getDate() === todo.createdAt);
-    localStorage.setItem('todoLists', JSON.stringify(updatedTodoLists));
-    return updatedTodoLists;
-}
 
 /* Define the reducer function for the todo list */
 export const todoReducer = (state, action) => {

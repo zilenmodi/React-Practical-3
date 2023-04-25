@@ -11,11 +11,14 @@ const ToDoContainer = () => {
     const dateData = useTime();
 
     return (
-        <ToDoComponent
-            visibleTodos={visibleTodos}
-            dispatch={dispatch}
-            dateData={dateData}
-        />
+        <React.Fragment>
+            <ToDoComponent
+                visibleTodos={visibleTodos}
+                dispatch={dispatch}
+                dateData={dateData}
+            />
+        </React.Fragment>
+
     );
 };
 

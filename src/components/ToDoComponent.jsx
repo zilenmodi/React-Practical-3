@@ -3,12 +3,12 @@ import "./ToDoComponent.css";
 import ImageCompleted from "../assets/task-completed.png";
 import ImageNotCompleted from "../assets/task-not-completed.png";
 import ToDoFormContainer from "../containers/ToDoFormContainer";
-import ImageAllComplete from "../assets/complete.png";
+import ImageAllComplete from "../assets/completed.avif";
 
 const ToDoComponent = ({ visibleTodos, dispatch, dateData }) => {
     visibleTodos.sort((a, b) => b["completed"] - a["completed"]);
     return (
-        <>
+        <React.Fragment>
             <div className="todo-container">
                 <div className="todo-box">
                     <div className="todo-presentner">
@@ -65,7 +65,7 @@ const ToDoComponent = ({ visibleTodos, dispatch, dateData }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 };
 
